@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Конфигуратор Luxal</title>
+<meta name="description" content="Разбор задачи и бриф: конфигуратор перегородок и автоматическое коммерческое предложение для Евростиль / Luxal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F6F9;
+  --surface:#FFFFFF;
+  --surface-2:#EAEFF5;
+  --line:#D9E2EC;
+  --line-soft:#E8EEF4;
+  --ink:#16202C;
+  --ink-2:#4A5B6E;
+  --muted:#8E9DAC;
+  --brand:#1C5F9E;
+  --brand-hover:#1770C5;
+  --brand-deep:#2A3966;
+  --brand-soft:#E7F0F9;
+  --gold:#F6C624;
+  --gold-ink:#7A5B00;
+  --gold-soft:#FDF4D6;
+  --panel-decor:#F2F2EF;
+  --shadow:0 1px 2px rgba(28,95,158,.06), 0 8px 24px rgba(42,57,102,.07);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E151E;
+    --surface:#151F2B;
+    --surface-2:#1D2A38;
+    --line:#2A3949;
+    --line-soft:#22303F;
+    --ink:#E6EDF5;
+    --ink-2:#AEBECE;
+    --muted:#7D8EA0;
+    --brand:#67B1F6;
+    --brand-hover:#8CC5FA;
+    --brand-deep:#93A7E4;
+    --brand-soft:#152B3E;
+    --gold:#F6C624;
+    --gold-ink:#F9D257;
+    --gold-soft:#2C2405;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E151E; --surface:#151F2B; --surface-2:#1D2A38; --line:#2A3949; --line-soft:#22303F;
+  --ink:#E6EDF5; --ink-2:#AEBECE; --muted:#7D8EA0;
+  --brand:#67B1F6; --brand-hover:#8CC5FA; --brand-deep:#93A7E4; --brand-soft:#152B3E;
+  --gold:#F6C624; --gold-ink:#F9D257; --gold-soft:#2C2405;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  font-size:16px; line-height:1.6; letter-spacing:-.002em;
+}
+h1,h2,h3,h4{font-family:Raleway,"Segoe UI",system-ui,sans-serif; margin:0; text-wrap:balance; letter-spacing:-.015em}
+p{margin:0}
+a{color:var(--brand)}
+img{max-width:100%; display:block}
+:focus-visible{outline:2px solid var(--brand); outline-offset:3px; border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important}}
+
+.wrap{max-width:1080px; margin:0 auto; padding:0 22px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{display:flex; align-items:center; gap:16px; height:60px}
+.brandmark{
+  display:flex; align-items:center; justify-content:center;
+  background:var(--brand-deep); border-radius:9px; padding:7px 11px; flex:none;
+}
+.brandmark img{height:22px; width:auto}
+.topbar-title{font-family:Raleway; font-weight:700; font-size:14.5px; letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.topbar-title span{color:var(--muted); font-weight:500}
+.progress{margin-left:auto; display:flex; align-items:center; gap:10px; flex:none}
+.progress-bar{width:120px; height:6px; border-radius:99px; background:var(--surface-2); overflow:hidden; border:1px solid var(--line)}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--brand),var(--brand-deep)); transition:width .35s ease}
+.progress-num{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-2); font-variant-numeric:tabular-nums}
+@media (max-width:640px){ .topbar-title{font-size:12.5px} .progress-bar{width:70px} }
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 40px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--brand); display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.eyebrow::before{content:""; width:26px; height:2px; background:var(--gold); flex:none}
+h1{font-size:clamp(31px,5.2vw,52px); font-weight:800; line-height:1.06; margin:18px 0 0}
+h1 em{font-style:normal; color:var(--brand)}
+.lede{margin-top:20px; font-size:17.5px; color:var(--ink-2); max-width:60ch}
+.lede strong{color:var(--ink); font-weight:600}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:42px; align-items:start}
+@media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:28px} .hero{padding:36px 0 28px} }
+.hero-photo{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); background:var(--surface)}
+.hero-photo figcaption{padding:12px 14px; font-size:13px; color:var(--ink-2); border-top:1px solid var(--line-soft)}
+.hero-photo figcaption b{color:var(--ink); font-weight:600}
+.meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+.chip{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; padding:6px 11px; border-radius:99px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+}
+.chip b{color:var(--ink); font-weight:500}
+.chip.accent{background:var(--gold-soft); border-color:color-mix(in srgb,var(--gold) 45%,transparent); color:var(--gold-ink)}
+
+/* ---------- sections ---------- */
+section.block{padding:44px 0; border-top:1px solid var(--line)}
+.sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:8px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--brand); flex:none; padding-top:4px}
+h2{font-size:clamp(22px,3.2vw,31px); font-weight:700}
+.sec-sub{color:var(--ink-2); margin-top:10px; max-width:66ch; font-size:15.5px}
+
+/* ---------- facts ---------- */
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:14px; margin-top:26px}
+.fact{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 16px 15px; position:relative; overflow:hidden}
+.fact::before{content:""; position:absolute; left:0; top:14px; bottom:14px; width:2px; background:var(--brand); opacity:.5}
+.fact dt{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+.fact dd{margin:0; font-size:14.5px; line-height:1.5}
+.fact dd b{font-weight:600}
+
+.gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:22px}
+.gallery figure{margin:0; border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--surface)}
+.gallery img{aspect-ratio:4/3; object-fit:cover; width:100%}
+.gallery figcaption{padding:9px 11px; font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--line-soft)}
+
+.callout{
+  margin-top:26px; background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--gold); border-radius:0 12px 12px 0; padding:18px 20px;
+}
+.callout h3{font-size:16.5px; font-weight:700; margin-bottom:8px}
+.callout p{font-size:15px; color:var(--ink-2)}
+.callout p + p{margin-top:9px}
+.callout b{color:var(--ink)}
+
+/* ---------- flow ---------- */
+.flow{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:26px}
+@media (max-width:820px){ .flow{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:460px){ .flow{grid-template-columns:1fr} }
+.step{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px; position:relative}
+.step-n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--brand); letter-spacing:.1em}
+.step h3{font-size:15.5px; font-weight:700; margin:7px 0 7px}
+.step p{font-size:13.5px; color:var(--ink-2); line-height:1.5}
+.step-admin{
+  margin-top:12px; background:var(--brand-soft); border:1px dashed color-mix(in srgb,var(--brand) 45%,transparent);
+  border-radius:12px; padding:14px 16px; font-size:14px; color:var(--ink-2);
+}
+.step-admin b{color:var(--ink)}
+
+/* ---------- demo ---------- */
+.demo{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-top:26px}
+.demo-controls{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px; padding:20px; border-bottom:1px solid var(--line-soft); background:var(--surface-2)}
+.ctrl label{display:block; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+.ctrl .val{font-family:"IBM Plex Mono",monospace; font-size:15px; color:var(--ink); font-variant-numeric:tabular-nums}
+input[type=range]{width:100%; accent-color:var(--brand); margin-top:4px}
+.swatches{display:flex; gap:7px; margin-top:6px}
+.sw{width:30px; height:30px; border-radius:7px; border:2px solid var(--line); cursor:pointer; padding:0}
+.sw[aria-pressed="true"]{border-color:var(--brand); box-shadow:0 0 0 3px var(--brand-soft)}
+.demo-svg{padding:22px 16px; background:var(--surface)}
+.demo-out{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:1px; background:var(--line-soft); border-top:1px solid var(--line-soft)}
+.out{background:var(--surface); padding:14px 16px}
+.out .k{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.out .v{font-family:Raleway; font-weight:700; font-size:20px; margin-top:5px; font-variant-numeric:tabular-nums}
+.out .v small{font-family:"IBM Plex Sans"; font-weight:500; font-size:12.5px; color:var(--muted)}
+.demo-note{padding:15px 20px; background:var(--gold-soft); border-top:1px solid color-mix(in srgb,var(--gold) 35%,transparent); font-size:13.5px; color:var(--gold-ink)}
+.demo-note b{font-weight:600}
+
+/* ---------- brief ---------- */
+.qsec{margin-top:30px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); overflow:hidden}
+.qsec-head{display:flex; align-items:center; gap:12px; padding:15px 20px; background:var(--surface-2); border-bottom:1px solid var(--line)}
+.qsec-key{font-family:"IBM Plex Mono",monospace; font-size:12px; color:#fff; background:var(--brand); border-radius:6px; padding:3px 8px; flex:none}
+.qsec-head h3{font-size:17px; font-weight:700}
+.qsec-head .cnt{margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+.q{padding:18px 20px; border-top:1px solid var(--line-soft)}
+.q:first-child{border-top:none}
+.q-title{font-size:15.5px; font-weight:600; display:flex; gap:9px; align-items:baseline}
+.q-title .hint{font-weight:400; font-size:12.5px; color:var(--muted)}
+.q-note{font-size:13.5px; color:var(--ink-2); margin-top:5px}
+.opts{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+.opt{
+  font:inherit; font-size:14px; padding:8px 14px; border-radius:9px; cursor:pointer;
+  border:1px solid var(--line); background:var(--ground); color:var(--ink); transition:background .15s, border-color .15s, color .15s;
+}
+.opt:hover{border-color:var(--brand); color:var(--brand)}
+.opt[aria-pressed="true"]{background:var(--brand); border-color:var(--brand); color:#fff; font-weight:500}
+:root[data-theme="dark"] .opt[aria-pressed="true"], :root:not([data-theme="light"]) .opt[aria-pressed="true"]{color:#0E151E}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .opt[aria-pressed="true"]{color:#fff} }
+textarea, input[type=text]{
+  font:inherit; font-size:14.5px; width:100%; margin-top:11px; padding:11px 13px;
+  border:1px solid var(--line); border-radius:9px; background:var(--ground); color:var(--ink); resize:vertical;
+}
+textarea::placeholder, input::placeholder{color:var(--muted)}
+
+/* ---------- checklist ---------- */
+.checks{display:grid; gap:9px; margin-top:22px}
+.chk{
+  display:flex; gap:13px; align-items:flex-start; padding:14px 16px; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:11px; transition:border-color .15s;
+}
+.chk:hover{border-color:var(--brand)}
+.chk[data-on="1"]{border-color:var(--brand); background:var(--brand-soft)}
+.chk .box{
+  flex:none; width:21px; height:21px; border-radius:6px; border:1.5px solid var(--muted); margin-top:1px;
+  display:grid; place-items:center; font-size:12px; color:#fff;
+}
+.chk[data-on="1"] .box{background:var(--brand); border-color:var(--brand)}
+.chk .box span{opacity:0}
+.chk[data-on="1"] .box span{opacity:1}
+.chk .t{font-size:14.5px; font-weight:600}
+.chk .d{font-size:13px; color:var(--ink-2); margin-top:3px}
+
+/* ---------- send ---------- */
+.send{background:var(--brand-deep); border-radius:var(--radius); padding:30px; margin-top:26px; color:#EEF3FA}
+:root[data-theme="dark"] .send, :root:not([data-theme="light"]) .send{background:var(--surface-2); border:1px solid var(--line); color:var(--ink)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .send{background:var(--brand-deep); border:0; color:#EEF3FA} }
+.send h3{font-size:20px; font-weight:700; color:inherit}
+.send p{font-size:14.5px; opacity:.85; margin-top:9px; max-width:62ch}
+.identity{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px}
+@media (max-width:560px){ .identity{grid-template-columns:1fr} }
+.identity input{margin-top:0; background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.22); color:inherit}
+:root[data-theme="dark"] .identity input, :root:not([data-theme="light"]) .identity input{background:var(--ground); border-color:var(--line); color:var(--ink)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .identity input{background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.22); color:#EEF3FA} }
+.btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px}
+.btn{
+  font:inherit; font-family:Raleway; font-weight:700; font-size:15px; padding:12px 22px; border-radius:10px;
+  cursor:pointer; border:1px solid transparent; transition:transform .12s, background .15s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--gold); color:#241B00}
+.btn-primary:hover{background:#FFD84A}
+.btn-ghost{background:transparent; border-color:rgba(255,255,255,.3); color:inherit}
+:root[data-theme="dark"] .btn-ghost, :root:not([data-theme="light"]) .btn-ghost{border-color:var(--line)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .btn-ghost{border-color:rgba(255,255,255,.3)} }
+.btn-ghost:hover{background:rgba(255,255,255,.09)}
+.sent-hint{margin-top:14px; font-size:13px; opacity:.8; min-height:20px}
+
+pre.preview{
+  margin-top:18px; max-height:260px; overflow:auto; background:rgba(0,0,0,.22); border-radius:10px;
+  padding:14px 16px; font-family:"IBM Plex Mono",monospace; font-size:12px; line-height:1.55; white-space:pre-wrap; word-break:break-word;
+}
+:root[data-theme="dark"] pre.preview, :root:not([data-theme="light"]) pre.preview{background:var(--ground); border:1px solid var(--line)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) pre.preview{background:rgba(0,0,0,.22); border:0} }
+
+footer{padding:36px 0 60px; border-top:1px solid var(--line); margin-top:44px; color:var(--muted); font-size:13.5px}
+footer b{color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="brandmark"><img src="img/logo-luxal.svg" alt="Евростиль / Luxal"></span>
+    <div class="topbar-title">Конфигуратор перегородок и КП <span>· бриф</span></div>
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+      <span class="progress-num" id="pnum">0 / 0</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Евростиль · luxal.ru · созвон 27 августа, 12:00</div>
+      <h1>Считаем перегородку — <em>и КП собирается само</em></h1>
+      <p class="lede">Максим, здравствуйте. Я послушал вашу голосовую, разобрал сайт и <strong>позвонил вам как клиент</strong>, чтобы увидеть, как заявка выглядит с той стороны. Ниже — что я понял, живой набросок того самого расчёта «со схемой», и бриф на 10–12 минут: почти везде достаточно нажать кнопку.</p>
+      <p class="lede" style="margin-top:14px">В конце — одна кнопка, чтобы прислать ответы мне. Тогда 27-го мы не тратим час на «а что вы имели в виду», а сразу говорим про сроки и деньги.</p>
+      <div class="meta-row">
+        <span class="chip"><b>Владимир Хачатуров</b> · разработка</span>
+        <span class="chip">по рекомендации <b>Димы</b></span>
+        <span class="chip accent">10–12 минут на заполнение</span>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="img/hpl-standart.jpg" alt="Ряд сантехнических кабин Евростиль из HPL" loading="eager">
+      <figcaption><b>Ваше фото с luxal.ru.</b> Ровно такую раскладку — ширина проёма, число кабин, двери, стойки, зазор от пола — и должна считать программа.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ================= 1. ЧТО Я УЖЕ ПОСМОТРЕЛ ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Что я успел проверить до созвона</h2></div>
+    <p class="sec-sub">Чтобы вы не пересказывали мне свой же сайт. Если где-то ошибся — поправьте прямо в брифе, это полезнее, чем если я приду с чистым листом.</p>
+
+    <dl class="facts">
+      <div class="fact"><dt>Серии</dt><dd>HPL <b>«Стандарт»</b> — каркас из анодированного алюминиевого профиля. HPL <b>«Премиум»</b> — бескаркасная система крепления.</dd></div>
+      <div class="fact"><dt>Материалы</dt><dd>HPL 12 мм (<b>Abet Laminati</b>, вы дилер), ЛДСП, закалённое стекло, поликарбонат.</dd></div>
+      <div class="fact"><dt>Типовая геометрия</dt><dd>Высота <b>1950</b>, ширина <b>900–1200</b>, глубина <b>1200–1500</b>, зазор от пола <b>90–110</b> мм.</dd></div>
+      <div class="fact"><dt>Фурнитура</dt><dd>Две линейки: серия <b>Design</b> и <b>STC 304</b> (нержавейка).</dd></div>
+      <div class="fact"><dt>Цвет</dt><dd>Складская программа + индивидуальный заказ со сроком <b>4–6 недель</b>. Это отдельная ветка в расчёте срока.</dd></div>
+      <div class="fact"><dt>Цена на витрине</dt><dd>«<b>от 16 352 ₽/м²</b>» — то есть сайт сегодня даёт вилку за материал, а не расчёт изделия.</dd></div>
+      <div class="fact"><dt>Сроки</dt><dd>Производство <b>5–7 рабочих дней</b>, монтаж <b>5–8 кабин в день</b>. Это уже готовые строки для КП.</dd></div>
+      <div class="fact"><dt>Гарантия</dt><dd><b>2 года</b> на перегородки, <b>7 лет</b> на фурнитуру. Тоже в шаблон КП.</dd></div>
+      <div class="fact"><dt>Что ещё в каталоге</dt><dd>Душевые, писсуарные, детские, шкафчики для раздевалок, экраны на батареи. <b>Каждый тип — отдельная модель расчёта.</b></dd></div>
+    </dl>
+
+    <div class="gallery">
+      <figure><img src="img/standart2.jpg" alt="Перегородка серии Стандарт" loading="lazy"><figcaption>Серия «Стандарт»</figcaption></figure>
+      <figure><img src="img/premium.jpg" alt="Перегородка серии Премиум" loading="lazy"><figcaption>Серия «Премиум»</figcaption></figure>
+      <figure><img src="img/dushevye.jpg" alt="Душевые перегородки HPL" loading="lazy"><figcaption>Душевые</figcaption></figure>
+      <figure><img src="img/pissuarnye.jpg" alt="Писсуарные перегородки" loading="lazy"><figcaption>Писсуарные</figcaption></figure>
+      <figure><img src="img/ldsp.jpg" alt="Перегородки из ЛДСП" loading="lazy"><figcaption>ЛДСП</figcaption></figure>
+      <figure><img src="img/obiekt.jpg" alt="Реализованный объект" loading="lazy"><figcaption>Объект из галереи</figcaption></figure>
+    </div>
+
+    <div class="callout">
+      <h3>Что мне ответили, когда я позвонил вам как клиент</h3>
+      <p>«Нужен <b>размер помещения</b>, <b>план помещения</b>, <b>определиться с цветом</b> — дальше менеджер подскажет».</p>
+      <p>То есть цепочка <b>заявка → уточнение → ручной расчёт → КП</b> сегодня целиком держится на человеке, и клиент получает цифру не в момент интереса, а когда до него дошла очередь. Ровно это мы и автоматизируем: те же три входа, но ответ — сразу, с картинкой и в вашем бланке.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. КАК ПОНЯЛ ЗАДАЧУ ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Как я понял задачу</h2></div>
+    <p class="sec-sub">Из вашей голосовой: «завести ширину-высоту → расчёт со схемой → коммерческое предложение → менять логотип, форму КП под себя, скидки для партнёров». Раскладываю это на четыре части — по ним и построим этапы.</p>
+
+    <div class="flow">
+      <div class="step"><div class="step-n">ВВОД</div><h3>Размеры и параметры</h3><p>Ширина проёма, глубина, высота, материал, цвет, фурнитура, число кабин. План помещения — файлом. Регион — для доставки и монтажа.</p></div>
+      <div class="step"><div class="step-n">РАСЧЁТ</div><h3>Раскладка и спецификация</h3><p>Сколько кабин влезает и какой ширины, сколько панелей, дверей, стоек, погонажа профиля и комплектов фурнитуры. Дальше — цена по вашему прайсу.</p></div>
+      <div class="step"><div class="step-n">ДОКУМЕНТ</div><h3>КП со схемой</h3><p>PDF: схема раскладки с размерами, спецификация, цена, сроки, гарантия — в вашем бланке, с вашим логотипом и подписью менеджера.</p></div>
+      <div class="step"><div class="step-n">ОТПРАВКА</div><h3>Почта и CRM</h3><p>Письмо клиенту, копия менеджеру, сделка в CRM с прикреплённым PDF. Или сначала проверка менеджером — это решаем в брифе.</p></div>
+    </div>
+
+    <div class="step-admin">
+      <b>Плюс админка, о которой вы говорили отдельно:</b> прайс и правила расчёта редактируются вами без программиста; шаблон КП, логотип и реквизиты — под каждую организацию; уровни скидок для партнёров. Это ключевое: <b>цены должны быть данными, а не кодом</b> — иначе каждое изменение прайса превращается в заявку на доработку.
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. ДЕМО ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Живой набросок: то самое «с картинкой»</h2></div>
+    <p class="sec-sub">Подвигайте ползунки. Схема перерисовывается по размерам — именно такая картинка и уходит в КП. Это черновик принципа, не ваш прайс: цифры справа считаются по геометрии, а не по вашей себестоимости.</p>
+
+    <div class="demo">
+      <div class="demo-controls">
+        <div class="ctrl">
+          <label for="w">Ширина проёма · <span class="val" id="wv">3600</span> мм</label>
+          <input type="range" id="w" min="1600" max="7200" step="50" value="3600">
+        </div>
+        <div class="ctrl">
+          <label for="d">Глубина кабины · <span class="val" id="dv">1400</span> мм</label>
+          <input type="range" id="d" min="1000" max="1800" step="50" value="1400">
+        </div>
+        <div class="ctrl">
+          <label for="n">Количество кабин · <span class="val" id="nv">3</span></label>
+          <input type="range" id="n" min="1" max="8" step="1" value="3">
+        </div>
+        <div class="ctrl">
+          <label>Цвет декора на схеме</label>
+          <div class="swatches" id="sw">
+            <button class="sw" data-c="#F2F2EF" style="background:#F2F2EF" aria-pressed="true" title="Белый" aria-label="Белый"></button>
+            <button class="sw" data-c="#B9BCC0" style="background:#B9BCC0" aria-pressed="false" title="Серый" aria-label="Серый"></button>
+            <button class="sw" data-c="#2E5D86" style="background:#2E5D86" aria-pressed="false" title="Синий" aria-label="Синий"></button>
+            <button class="sw" data-c="#D9C9AE" style="background:#D9C9AE" aria-pressed="false" title="Бежевый" aria-label="Бежевый"></button>
+            <button class="sw" data-c="#5A6B54" style="background:#5A6B54" aria-pressed="false" title="Зелёный" aria-label="Зелёный"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-svg"><div id="svgbox"></div></div>
+
+      <div class="demo-out">
+        <div class="out"><div class="k">Ширина кабины</div><div class="v" id="o-w">1200 <small>мм</small></div></div>
+        <div class="out"><div class="k">Дверей</div><div class="v" id="o-doors">3</div></div>
+        <div class="out"><div class="k">Панелей-перегородок</div><div class="v" id="o-panels">4</div></div>
+        <div class="out"><div class="k">Площадь HPL</div><div class="v" id="o-area">18,0 <small>м²</small></div></div>
+        <div class="out"><div class="k">Погонаж профиля</div><div class="v" id="o-prof">3,6 <small>м</small></div></div>
+        <div class="out"><div class="k">Ориентир по витрине</div><div class="v" id="o-price">294 336 <small>₽</small></div></div>
+      </div>
+
+      <div class="demo-note">
+        <b>Последняя цифра — намеренно неправильная.</b> Это площадь, умноженная на вашу же публичную «от 16 352 ₽/м²»: без раскроя листа Abet, без фурнитуры, без монтажа и доставки. Ровно поэтому первым шагом нужен ваш прайс и то, как считает менеджер — иначе программа будет быстро выдавать неверную цену, а это хуже, чем считать медленно.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. БРИФ ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Бриф</h2></div>
+    <p class="sec-sub">Где не уверены — жмите то, что ближе, или пропускайте: обсудим голосом. Ответы сохраняются в браузере, можно закрыть и вернуться.</p>
+    <div id="brief"></div>
+  </div>
+</section>
+
+<!-- ================= 5. ФАЙЛЫ ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Что прислать файлами</h2></div>
+    <p class="sec-sub">Это половина технического задания. Черновики и «как есть» — нормально, причёсывать не нужно. Отметьте, что сможете дать — я пойму, на что опираться.</p>
+    <div class="checks" id="files"></div>
+  </div>
+</section>
+
+<!-- ================= 6. ОТПРАВКА ================= -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Прислать ответы</h2></div>
+    <div class="send">
+      <h3>Готово — жмите «Скопировать»</h3>
+      <p>Ответы соберутся в текст. Нажмите кнопку и вставьте в WhatsApp — или скачайте файлом и пришлите вложением. Никуда автоматически ничего не уходит, всё под вашим контролем.</p>
+      <div class="identity">
+        <input type="text" id="who" placeholder="Кто заполнял — имя, должность">
+        <input type="text" id="org" placeholder="Компания и город">
+      </div>
+      <div class="btns">
+        <button class="btn btn-primary" id="b-copy">Скопировать и открыть WhatsApp</button>
+        <button class="btn btn-ghost" id="b-copy2">Просто скопировать</button>
+        <button class="btn btn-ghost" id="b-file">Скачать файлом</button>
+        <button class="btn btn-ghost" id="b-mail">Открыть почту</button>
+      </div>
+      <div class="sent-hint" id="hint"></div>
+      <pre class="preview" id="preview"></pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Владимир Хачатуров</b> — разработка. Страница сделана под задачу Евростиль / luxal.ru, фотографии и фирменные цвета взяты с вашего сайта.</p>
+    <p style="margin-top:8px">Ничего не отправляется автоматически: ответы живут только в вашем браузере, пока вы сами их не скопируете.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   ДЕМО-СХЕМА РАСКЛАДКИ
+   ========================================================= */
+var decor = "#F2F2EF";
+var els = {
+  w: document.getElementById("w"), d: document.getElementById("d"), n: document.getElementById("n"),
+  wv: document.getElementById("wv"), dv: document.getElementById("dv"), nv: document.getElementById("nv"),
+  box: document.getElementById("svgbox")
+};
+
+function ink(){ return getComputedStyle(document.body).getPropertyValue("--ink").trim(); }
+function muted(){ return getComputedStyle(document.body).getPropertyValue("--muted").trim(); }
+function brand(){ return getComputedStyle(document.body).getPropertyValue("--brand").trim(); }
+function nf(x, dec){ return x.toLocaleString("ru-RU", {minimumFractionDigits:dec||0, maximumFractionDigits:dec||0}); }
+
+function draw(){
+  var W = +els.w.value, D = +els.d.value, N = +els.n.value;
+  var H = 1950, GAP = 100, T = 12;
+  var cab = W / N;
+
+  var VW = 1000, padL = 74, padR = 40, padT = 34;
+  var drawW = VW - padL - padR;
+  var s = drawW / W;
+  var hPx = H * s, gPx = GAP * s;
+  if (hPx > 300){ s = 300 / H; hPx = 300; gPx = GAP * s; }
+  var frontW = W * s;
+  var x0 = padL + (drawW - frontW) / 2;
+  var floorY = padT + hPx + gPx;
+  var planTop = floorY + 78;
+  var planD = Math.max(38, Math.min(96, D * s));
+  var VH = planTop + planD + 52;
+
+  var t = Math.max(3, T * s);
+  var c = { ink: ink(), mut: muted(), br: brand() };
+  var o = [];
+  o.push('<svg viewBox="0 0 ' + VW + ' ' + Math.round(VH) + '" width="100%" role="img" aria-label="Схема раскладки перегородок: ' + N + ' кабин на ширину ' + W + ' мм" style="font-family:\'IBM Plex Mono\',monospace">');
+
+  // двери
+  for (var i = 0; i < N; i++){
+    var dx = x0 + i * cab * s;
+    o.push('<rect x="' + (dx + t/2) + '" y="' + padT + '" width="' + (cab*s - t) + '" height="' + hPx + '" rx="2" fill="' + decor + '" stroke="' + c.mut + '" stroke-width="1"/>');
+    var hx = dx + cab*s - t/2 - 14;
+    o.push('<circle cx="' + hx + '" cy="' + (padT + hPx*0.52) + '" r="3.4" fill="' + c.ink + '" opacity=".55"/>');
+    o.push('<rect x="' + (hx - 2) + '" y="' + (padT + hPx*0.52 - 12) + '" width="4" height="9" rx="2" fill="' + c.ink + '" opacity=".3"/>');
+  }
+  // стойки / торцы перегородок
+  for (var j = 0; j <= N; j++){
+    var sx = x0 + j * cab * s - t/2;
+    o.push('<rect x="' + sx + '" y="' + (padT - 6) + '" width="' + t + '" height="' + (hPx + 6) + '" rx="1" fill="' + c.br + '" opacity=".85"/>');
+    o.push('<rect x="' + (sx + t*0.15) + '" y="' + (padT + hPx) + '" width="' + (t*0.7) + '" height="' + gPx + '" fill="' + c.mut + '"/>');
+  }
+  // пол
+  o.push('<line x1="' + (x0 - 26) + '" y1="' + floorY + '" x2="' + (x0 + frontW + 26) + '" y2="' + floorY + '" stroke="' + c.ink + '" stroke-width="1.6"/>');
+  for (var k = 0; k < 26; k++){
+    var hx2 = x0 - 26 + k * ((frontW + 52) / 26);
+    o.push('<line x1="' + hx2 + '" y1="' + floorY + '" x2="' + (hx2 - 7) + '" y2="' + (floorY + 7) + '" stroke="' + c.mut + '" stroke-width="1" opacity=".6"/>');
+  }
+
+  // размеры по каждой кабине
+  var dimY = floorY + 26;
+  for (var m = 0; m < N; m++){
+    var a = x0 + m * cab * s, b = a + cab * s;
+    o.push('<line x1="' + a + '" y1="' + dimY + '" x2="' + b + '" y2="' + dimY + '" stroke="' + c.mut + '" stroke-width="1"/>');
+    o.push('<line x1="' + a + '" y1="' + (dimY-4) + '" x2="' + a + '" y2="' + (dimY+4) + '" stroke="' + c.mut + '" stroke-width="1"/>');
+    o.push('<line x1="' + b + '" y1="' + (dimY-4) + '" x2="' + b + '" y2="' + (dimY+4) + '" stroke="' + c.mut + '" stroke-width="1"/>');
+    if (cab * s > 52) o.push('<text x="' + ((a+b)/2) + '" y="' + (dimY - 6) + '" text-anchor="middle" font-size="11" fill="' + c.mut + '">' + Math.round(cab) + '</text>');
+  }
+  // общий размер
+  var totY = dimY + 26;
+  o.push('<line x1="' + x0 + '" y1="' + totY + '" x2="' + (x0+frontW) + '" y2="' + totY + '" stroke="' + c.br + '" stroke-width="1.4"/>');
+  o.push('<line x1="' + x0 + '" y1="' + (totY-5) + '" x2="' + x0 + '" y2="' + (totY+5) + '" stroke="' + c.br + '" stroke-width="1.4"/>');
+  o.push('<line x1="' + (x0+frontW) + '" y1="' + (totY-5) + '" x2="' + (x0+frontW) + '" y2="' + (totY+5) + '" stroke="' + c.br + '" stroke-width="1.4"/>');
+  o.push('<text x="' + (x0 + frontW/2) + '" y="' + (totY - 7) + '" text-anchor="middle" font-size="12" font-weight="500" fill="' + c.br + '">' + W + ' мм</text>');
+
+  // высота
+  var vx = x0 - 40;
+  o.push('<line x1="' + vx + '" y1="' + padT + '" x2="' + vx + '" y2="' + (padT+hPx) + '" stroke="' + c.mut + '" stroke-width="1"/>');
+  o.push('<line x1="' + (vx-4) + '" y1="' + padT + '" x2="' + (vx+4) + '" y2="' + padT + '" stroke="' + c.mut + '" stroke-width="1"/>');
+  o.push('<line x1="' + (vx-4) + '" y1="' + (padT+hPx) + '" x2="' + (vx+4) + '" y2="' + (padT+hPx) + '" stroke="' + c.mut + '" stroke-width="1"/>');
+  o.push('<text x="' + (vx-6) + '" y="' + (padT + hPx/2) + '" text-anchor="middle" font-size="11" fill="' + c.mut + '" transform="rotate(-90 ' + (vx-6) + ' ' + (padT+hPx/2) + ')">1950</text>');
+  o.push('<text x="' + (vx-6) + '" y="' + (padT + hPx + gPx/2 + 4) + '" text-anchor="end" font-size="10" fill="' + c.mut + '">' + GAP + '</text>');
+
+  o.push('<text x="' + x0 + '" y="' + (padT - 14) + '" font-size="10.5" fill="' + c.mut + '" letter-spacing="1.4">ВИД СПЕРЕДИ</text>');
+
+  // план сверху
+  o.push('<text x="' + x0 + '" y="' + (planTop - 12) + '" font-size="10.5" fill="' + c.mut + '" letter-spacing="1.4">ПЛАН СВЕРХУ</text>');
+  o.push('<rect x="' + x0 + '" y="' + planTop + '" width="' + frontW + '" height="' + planD + '" fill="' + c.br + '" opacity=".05"/>');
+  o.push('<line x1="' + x0 + '" y1="' + (planTop + planD) + '" x2="' + (x0+frontW) + '" y2="' + (planTop+planD) + '" stroke="' + c.ink + '" stroke-width="2.5"/>');
+  for (var p = 0; p <= N; p++){
+    var px = x0 + p * cab * s;
+    o.push('<line x1="' + px + '" y1="' + planTop + '" x2="' + px + '" y2="' + (planTop+planD) + '" stroke="' + c.br + '" stroke-width="' + Math.max(2.4, t) + '" stroke-linecap="square"/>');
+  }
+  for (var q = 0; q < N; q++){
+    var qa = x0 + q * cab * s + t/2;
+    o.push('<line x1="' + qa + '" y1="' + planTop + '" x2="' + (qa + (cab*s - t)*0.78) + '" y2="' + (planTop - 22) + '" stroke="' + c.mut + '" stroke-width="1.4" stroke-dasharray="3 3"/>');
+  }
+  o.push('<text x="' + (x0 + frontW + 10) + '" y="' + (planTop + planD/2 + 4) + '" font-size="11" fill="' + c.mut + '">' + D + ' мм</text>');
+  o.push('</svg>');
+
+  els.box.innerHTML = o.join("");
+
+  // ---- метрики ----
+  var areaFront = W * H / 1e6;
+  var areaPart  = (N + 1) * D * H / 1e6;
+  var areaTot   = areaFront + areaPart;
+  document.getElementById("o-w").innerHTML = nf(Math.round(cab)) + ' <small>мм</small>';
+  document.getElementById("o-doors").textContent = N;
+  document.getElementById("o-panels").textContent = N + 1;
+  document.getElementById("o-area").innerHTML = nf(areaTot,1) + ' <small>м²</small>';
+  document.getElementById("o-prof").innerHTML = nf(W/1000 + (N+1)*D/1000, 1) + ' <small>м</small>';
+  document.getElementById("o-price").innerHTML = nf(Math.round(areaTot * 16352)) + ' <small>₽</small>';
+
+  els.wv.textContent = W; els.dv.textContent = D; els.nv.textContent = N;
+}
+
+["w","d","n"].forEach(function(id){ els[id].addEventListener("input", draw); });
+document.getElementById("sw").addEventListener("click", function(e){
+  var b = e.target.closest(".sw"); if (!b) return;
+  this.querySelectorAll(".sw").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+  b.setAttribute("aria-pressed","true"); decor = b.dataset.c; draw();
+});
+if (window.matchMedia) {
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", draw);
+}
+draw();
+
+/* =========================================================
+   БРИФ
+   ========================================================= */
+var BRIEF = [
+ { k:"A", t:"Кто и зачем этим пользуется", q:[
+   {id:"a1", type:"multi", q:"Кто будет открывать калькулятор?", note:"Можно несколько — но это три разных интерфейса, и от ответа сильнее всего зависит объём работы.",
+    o:["Клиент прямо на сайте","Ваш менеджер внутри компании","Дилер / партнёр","Ещё не решили"]},
+   {id:"a2", type:"single", q:"Сколько КП вы выпускаете в месяц?", o:["До 20","20–50","50–150","Больше 150"]},
+   {id:"a3", type:"single", q:"Сколько времени уходит на одно КП сейчас?", o:["До 15 минут","30–60 минут","Несколько часов","День и больше"]},
+   {id:"a4", type:"multi", q:"Что сегодня мешает больше всего?", o:["Долго считать","Ошибаемся в расчётах","Менеджер — узкое место","Дилеры не могут продавать сами","Клиент уходит, пока ждёт цену","КП выглядят по-разному у разных людей"]},
+   {id:"a5", type:"text", q:"Как вы поймёте через полгода, что программа окупилась?", ph:"Например: менеджер делает КП за 5 минут вместо часа; дилеры сами выставляют 30 КП в месяц…"}
+ ]},
+ { k:"B", t:"Что именно считаем", q:[
+   {id:"b1", type:"multi", q:"Что должно считаться в первой версии?", note:"Каждый тип — своя модель раскладки. Чем короче список на старте, тем быстрее вы увидите работающую программу.",
+    o:["HPL «Стандарт»","HPL «Премиум»","ЛДСП","Стекло","Душевые","Писсуарные","Детские","Шкафчики для раздевалок","Экраны на батареи"]},
+   {id:"b2", type:"multi", q:"Что вводит пользователь?", o:["Ширина проёма","Глубина кабины","Высота","Количество кабин","План помещения файлом","Материал","Цвет / декор","Фурнитура","Ширина двери","Город / регион","Нужен ли монтаж"]},
+   {id:"b3", type:"single", q:"Кто решает, сколько будет кабин?", o:["Программа раскладывает сама по ширине","Человек задаёт количество","Программа предлагает, человек может поправить"]},
+   {id:"b4", type:"single", q:"Какая точность цены нужна?", note:"Мой совет — третий вариант: клиенту вилка, менеджеру точный расчёт по спецификации.",
+    o:["Ориентировочно, вилка по м²","Точно, по спецификации (лист, погонаж, фурнитура)","Два режима: клиенту вилка, менеджеру точно"]},
+   {id:"b5", type:"single", q:"Есть ли файл, по которому менеджер считает сегодня?", o:["Да, Excel","Есть, но у каждого свой","Считают по памяти и опыту","Нет ничего формализованного"]},
+   {id:"b6", type:"single", q:"Что делать с нестандартом — колонна, наклонная стена, нетиповая высота?", note:"Стоп-кран обязателен: программа, которая молча выдаёт цену на невозможную конфигурацию, опаснее ручного расчёта.",
+    o:["Считать примерно и пометить «требует уточнения»","Отказаться считать и позвать менеджера","Принять заявку и передать в CRM без цены"]},
+   {id:"b7", type:"multi", q:"Что входит в итоговую цену КП?", o:["Изделие","Монтаж","Доставка","Замер","Демонтаж старых","Только изделие, остальное отдельной строкой"]},
+   {id:"b8", type:"single", q:"Цены показываем с НДС или без?", o:["С НДС","Без НДС","Оба варианта — зависит от клиента"]},
+   {id:"b9", type:"text", q:"Что чаще всего ломает расчёт у менеджера — где он ошибается или спорит?", ph:"Это самое ценное место. Любой пример из практики."}
+ ]},
+ { k:"C", t:"Та самая картинка", q:[
+   {id:"c1", type:"single", q:"«С картинкой» — это что именно?", note:"Схема с размерами — быстро и всегда честно. 3D — красиво, дорого и на старте не нужно.",
+    o:["Схема с размерами: вид спереди + план сверху","3D-визуализация","Фото похожего объекта из вашей галереи","Схема сейчас, 3D потом"]},
+   {id:"c2", type:"single", q:"Показывать выбранный цвет/декор прямо на схеме?", o:["Да, обязательно","Хорошо бы, но не критично","Не нужно"]},
+   {id:"c3", type:"single", q:"Есть ли сейчас чертёж, который прикладываете к КП?", o:["Да, делает конструктор","Иногда, по крупным объектам","Нет, только текст и фото"]}
+ ]},
+ { k:"D", t:"Коммерческое предложение", q:[
+   {id:"d1", type:"multi", q:"Что должно меняться в бланке КП?", o:["Логотип","Реквизиты компании","Контакты и подпись менеджера","Текст условий","Срок действия предложения","Размер скидки","Цвета и оформление","Порядок блоков","Язык"]},
+   {id:"d2", type:"single", q:"Сколько разных организаций будут выпускать КП?", note:"Это главная развилка по стоимости: одна компания и «двадцать разных брендов» — принципиально разные системы.",
+    o:["Одна — наша","2–5","5–20","Больше 20 / каждый дилер под своим брендом"]},
+   {id:"d3", type:"single", q:"Кто редактирует шаблон КП?", o:["Мы сами в админке","Каждый дилер у себя","Разработчик по заявке"]},
+   {id:"d4", type:"multi", q:"В каком виде нужен документ?", o:["PDF","Ссылка на страницу","Word — чтобы дописать руками","Excel-спецификация для производства"]},
+   {id:"d5", type:"single", q:"Куда уходит готовое КП?", note:"Рекомендую средний вариант: между расчётом и клиентом должен стоять человек, пока вы не убедитесь в цифрах.",
+    o:["Сразу клиенту на почту","Сначала менеджеру на проверку, потом клиенту","Только менеджеру, отправляет он сам"]},
+   {id:"d6", type:"single", q:"Нужен архив всех выпущенных КП со статусами?", o:["Да, с самого начала","Позже","Не нужно"]},
+   {id:"d7", type:"text", q:"Что обязательно должно быть в КП, чего точно не забыть?", ph:"Сроки производства, гарантия 2 года / 7 лет на фурнитуру, условия оплаты, монтаж…"}
+ ]},
+ { k:"E", t:"Партнёры и скидки", q:[
+   {id:"e1", type:"single", q:"Сколько партнёров сейчас?", o:["Пока нет","До 10","10–50","Больше 50"]},
+   {id:"e2", type:"single", q:"Как устроена скидка партнёра?", o:["Один процент на всех","Уровни: серебро / золото и т.п.","Индивидуально по каждому","От объёма заказа"]},
+   {id:"e3", type:"single", q:"Партнёр видит вашу базовую цену?", o:["Да","Нет — только свою","Только свою, и может добавить наценку сверху"]},
+   {id:"e4", type:"single", q:"Нужен ли партнёру личный вход?", o:["Да, логин и пароль","Достаточно персональной ссылки","Пока не нужно"]}
+ ]},
+ { k:"F", t:"Куда всё это уходит", q:[
+   {id:"f1", type:"single", q:"Какая у вас CRM?", o:["amoCRM","Битрикс24","Другая","CRM нет"]},
+   {id:"f2", type:"single", q:"Нужна выгрузка спецификации в 1С или на производство?", o:["Да","Позже","Нет"]},
+   {id:"f3", type:"single", q:"Сайт на WordPress — как удобнее подключаться?", o:["Дадим доступ разработчику","Через нашего админа","Лучше отдельным сервисом на поддомене"]},
+   {id:"f4", type:"text", q:"С какого адреса должны уходить письма и кому копия?", ph:"например: info@luxal.ru, копия — руководителю отдела"}
+ ]},
+ { k:"G", t:"Организация", q:[
+   {id:"g1", type:"single", q:"Есть ли срок, к которому нужно запустить?", o:["Нет, работаем спокойно","1–2 месяца","До конца года","Привязано к событию — напишу ниже"]},
+   {id:"g2", type:"text", q:"Кто принимает решение по проекту и кто будет от вас на связи?", ph:"Имя, роль, как удобнее общаться"},
+   {id:"g3", type:"single", q:"Ориентир бюджета — чтобы я предлагал реалистичное", note:"Честный диапазон экономит нам обоим неделю. Если непонятно — жмите последний вариант.",
+    o:["До 300 тыс","300–600 тыс","600 тыс — 1,2 млн","Больше","Обсудим на созвоне"]},
+   {id:"g4", type:"single", q:"Как удобнее работать?", o:["Один договор на всё","Этапами, с фиксацией цены на каждом","Сначала небольшой платный разбор, потом решаем"]},
+   {id:"g5", type:"textarea", q:"Что я не спросил, но вам важно?", ph:"Свободным текстом — любые мысли, опасения, «а ещё хотелось бы…»"}
+ ]}
+];
+
+var FILES = [
+ {id:"fl1", t:"Прайс или файл, по которому менеджер считает", d:"Excel, таблица, хоть фотография листа с цифрами. Главное — реальный, а не причёсанный."},
+ {id:"fl2", t:"2–3 настоящих КП, которые вы отправляли клиентам", d:"Это половина технического задания: по ним видно структуру, тон, обязательные блоки."},
+ {id:"fl3", t:"Один заказ «до и после»", d:"Что прислал клиент → как считали → что получилось в итоге. Самый ценный документ из всего списка."},
+ {id:"fl4", t:"Чертёж или схема, которую прикладываете", d:"Чтобы понять, какую картинку программа должна научиться рисовать."},
+ {id:"fl5", t:"Список цветов и декоров с артикулами", d:"Складская программа отдельно, заказные отдельно — со сроками."},
+ {id:"fl6", t:"Логотипы и реквизиты", d:"Ваши — и пример партнёра, если КП будет выпускаться под разными брендами."},
+ {id:"fl7", t:"Прайс на монтаж, доставку и замер", d:"Если это считается по регионам или коэффициентам — особенно важно."}
+];
+
+var state = {};
+try { state = JSON.parse(localStorage.getItem("luxal_brief_v1") || "{}"); } catch(e){ state = {}; }
+function save(){ try { localStorage.setItem("luxal_brief_v1", JSON.stringify(state)); } catch(e){} }
+
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(m){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]; }); };
+
+var briefEl = document.getElementById("brief");
+var html = "";
+BRIEF.forEach(function(sec){
+  html += '<div class="qsec"><div class="qsec-head"><span class="qsec-key">' + sec.k + '</span><h3>' + esc(sec.t) + '</h3><span class="cnt">' + sec.q.length + ' вопр.</span></div>';
+  sec.q.forEach(function(q){
+    html += '<div class="q" data-q="' + q.id + '">';
+    html += '<div class="q-title"><span>' + esc(q.q) + '</span>' + (q.type === "multi" ? '<span class="hint">можно несколько</span>' : '') + '</div>';
+    if (q.note) html += '<div class="q-note">' + esc(q.note) + '</div>';
+    if (q.type === "single" || q.type === "multi"){
+      html += '<div class="opts">';
+      q.o.forEach(function(op){
+        html += '<button type="button" class="opt" data-id="' + q.id + '" data-v="' + esc(op) + '" aria-pressed="false">' + esc(op) + '</button>';
+      });
+      html += '</div>';
+    } else if (q.type === "textarea"){
+      html += '<textarea rows="3" data-id="' + q.id + '" placeholder="' + esc(q.ph || "") + '"></textarea>';
+    } else {
+      html += '<input type="text" data-id="' + q.id + '" placeholder="' + esc(q.ph || "") + '">';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+});
+briefEl.innerHTML = html;
+
+var filesEl = document.getElementById("files");
+filesEl.innerHTML = FILES.map(function(f){
+  return '<div class="chk" data-id="' + f.id + '" data-on="0" role="checkbox" aria-checked="false" tabindex="0">' +
+         '<div class="box"><span>✓</span></div><div><div class="t">' + esc(f.t) + '</div><div class="d">' + esc(f.d) + '</div></div></div>';
+}).join("");
+
+function totalQ(){ var n = 0; BRIEF.forEach(function(s){ n += s.q.length; }); return n; }
+function answered(){
+  var n = 0;
+  BRIEF.forEach(function(s){ s.q.forEach(function(q){
+    var v = state[q.id];
+    if (Array.isArray(v) ? v.length : (v && String(v).trim())) n++;
+  }); });
+  return n;
+}
+function updateProgress(){
+  var a = answered(), t = totalQ();
+  document.getElementById("pfill").style.width = (a / t * 100) + "%";
+  document.getElementById("pnum").textContent = a + " / " + t;
+  buildText();
+}
+
+briefEl.addEventListener("click", function(e){
+  var b = e.target.closest(".opt"); if (!b) return;
+  var id = b.dataset.id, v = b.dataset.v;
+  var q = null;
+  BRIEF.forEach(function(s){ s.q.forEach(function(x){ if (x.id === id) q = x; }); });
+  if (q.type === "single"){
+    var same = state[id] === v;
+    state[id] = same ? "" : v;
+    b.parentNode.querySelectorAll(".opt").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    if (!same) b.setAttribute("aria-pressed","true");
+  } else {
+    var arr = Array.isArray(state[id]) ? state[id] : [];
+    var i = arr.indexOf(v);
+    if (i >= 0){ arr.splice(i,1); b.setAttribute("aria-pressed","false"); }
+    else { arr.push(v); b.setAttribute("aria-pressed","true"); }
+    state[id] = arr;
+  }
+  save(); updateProgress();
+});
+briefEl.addEventListener("input", function(e){
+  var t = e.target;
+  if (t.dataset && t.dataset.id){ state[t.dataset.id] = t.value; save(); updateProgress(); }
+});
+
+function toggleFile(el){
+  var on = el.dataset.on === "1" ? "0" : "1";
+  el.dataset.on = on; el.setAttribute("aria-checked", on === "1" ? "true" : "false");
+  state["_f_" + el.dataset.id] = on === "1"; save(); buildText();
+}
+filesEl.addEventListener("click", function(e){ var c = e.target.closest(".chk"); if (c) toggleFile(c); });
+filesEl.addEventListener("keydown", function(e){
+  if (e.key !== " " && e.key !== "Enter") return;
+  var c = e.target.closest(".chk"); if (c){ e.preventDefault(); toggleFile(c); }
+});
+
+["who","org"].forEach(function(id){
+  var el = document.getElementById(id);
+  el.value = state["_" + id] || "";
+  el.addEventListener("input", function(){ state["_" + id] = el.value; save(); buildText(); });
+});
+
+// восстановление
+BRIEF.forEach(function(s){ s.q.forEach(function(q){
+  var v = state[q.id]; if (!v) return;
+  if (q.type === "single" || q.type === "multi"){
+    var arr = Array.isArray(v) ? v : [v];
+    briefEl.querySelectorAll('.opt[data-id="' + q.id + '"]').forEach(function(b){
+      if (arr.indexOf(b.dataset.v) >= 0) b.setAttribute("aria-pressed","true");
+    });
+  } else {
+    var f = briefEl.querySelector('[data-id="' + q.id + '"]'); if (f) f.value = v;
+  }
+}); });
+FILES.forEach(function(f){
+  if (state["_f_" + f.id]){
+    var el = filesEl.querySelector('[data-id="' + f.id + '"]');
+    if (el){ el.dataset.on = "1"; el.setAttribute("aria-checked","true"); }
+  }
+});
+
+/* ---------- сборка текста ---------- */
+var textOut = "";
+function buildText(){
+  var L = [];
+  L.push("БРИФ · КОНФИГУРАТОР ПЕРЕГОРОДОК И АВТО-КП");
+  L.push("Евростиль / luxal.ru");
+  L.push("Заполнил: " + (state._who || "—") + (state._org ? " · " + state._org : ""));
+  L.push("Дата: " + new Date().toLocaleDateString("ru-RU"));
+  L.push("Отвечено: " + answered() + " из " + totalQ());
+  L.push("");
+  BRIEF.forEach(function(sec){
+    var lines = [];
+    sec.q.forEach(function(q){
+      var v = state[q.id];
+      var txt = Array.isArray(v) ? v.join("; ") : (v || "").trim();
+      if (!txt) return;
+      lines.push("• " + q.q);
+      lines.push("  → " + txt);
+    });
+    if (!lines.length) return;
+    L.push("── " + sec.k + ". " + sec.t.toUpperCase() + " ──");
+    L.push.apply(L, lines);
+    L.push("");
+  });
+  var picked = FILES.filter(function(f){ return state["_f_" + f.id]; });
+  if (picked.length){
+    L.push("── ФАЙЛЫ, КОТОРЫЕ ПРИШЛЮ ──");
+    picked.forEach(function(f){ L.push("• " + f.t); });
+    L.push("");
+  }
+  textOut = L.join("\n");
+  document.getElementById("preview").textContent = textOut;
+}
+
+function flash(msg){
+  var h = document.getElementById("hint");
+  h.textContent = msg;
+  setTimeout(function(){ if (h.textContent === msg) h.textContent = ""; }, 4000);
+}
+function copyText(cb){
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(textOut).then(function(){ flash("Скопировано в буфер обмена."); if (cb) cb(); },
+      function(){ fallbackCopy(cb); });
+  } else fallbackCopy(cb);
+}
+function fallbackCopy(cb){
+  var ta = document.createElement("textarea");
+  ta.value = textOut; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); flash("Скопировано в буфер обмена."); if (cb) cb(); }
+  catch(e){ flash("Не получилось скопировать — выделите текст ниже вручную."); }
+  document.body.removeChild(ta);
+}
+
+document.getElementById("b-copy").addEventListener("click", function(){
+  copyText(function(){ setTimeout(function(){ window.open("https://wa.me/79112754445", "_blank", "noopener"); }, 350); });
+});
+document.getElementById("b-copy2").addEventListener("click", function(){ copyText(); });
+document.getElementById("b-file").addEventListener("click", function(){
+  var blob = new Blob([textOut], {type:"text/plain;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "brief-luxal-" + new Date().toISOString().slice(0,10) + ".txt";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+  flash("Файл скачан — пришлите его вложением.");
+});
+document.getElementById("b-mail").addEventListener("click", function(){
+  var body = encodeURIComponent(textOut.slice(0, 1800) + (textOut.length > 1800 ? "\n\n[…полная версия — во вложении]" : ""));
+  window.location.href = "mailto:?subject=" + encodeURIComponent("Бриф: конфигуратор перегородок и КП — Евростиль") + "&body=" + body;
+});
+
+updateProgress();
+})();
+</script>
+</body>
+</html>
