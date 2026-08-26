@@ -3,9 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex">
 <title>Конфигуратор Luxal</title>
 <meta name="description" content="Разбор задачи и бриф: конфигуратор перегородок и автоматическое коммерческое предложение для Евростиль / Luxal.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Евростиль · luxal.ru">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://t2754445-debug.github.io/luxal-brief/">
+<meta property="og:title" content="Конфигуратор перегородок и КП">
+<meta property="og:description" content="Разбор задачи, живая схема раскладки и короткий бриф — 10 минут.">
+<meta property="og:image" content="https://t2754445-debug.github.io/luxal-brief/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Конфигуратор перегородок и КП — Евростиль">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Конфигуратор перегородок и КП">
+<meta name="twitter:description" content="Разбор задачи, живая схема раскладки и короткий бриф — 10 минут.">
+<meta name="twitter:image" content="https://t2754445-debug.github.io/luxal-brief/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -429,13 +444,13 @@ footer b{color:var(--ink-2)}
     <div class="sec-head"><span class="sec-num">06</span><h2>Прислать ответы</h2></div>
     <div class="send">
       <h3>Готово — жмите «Скопировать»</h3>
-      <p>Ответы соберутся в текст. Нажмите кнопку и вставьте в WhatsApp — или скачайте файлом и пришлите вложением. Никуда автоматически ничего не уходит, всё под вашим контролем.</p>
+      <p>Ответы соберутся в текст. Нажмите кнопку — текст ляжет в буфер обмена и откроется чат со мной, останется вставить. Или скачайте файлом и пришлите вложением. Никуда автоматически ничего не уходит, всё под вашим контролем.</p>
       <div class="identity">
         <input type="text" id="who" placeholder="Кто заполнял — имя, должность">
         <input type="text" id="org" placeholder="Компания и город">
       </div>
       <div class="btns">
-        <button class="btn btn-primary" id="b-copy">Скопировать и открыть WhatsApp</button>
+        <button class="btn btn-primary" id="b-copy">Скопировать и открыть Telegram</button>
         <button class="btn btn-ghost" id="b-copy2">Просто скопировать</button>
         <button class="btn btn-ghost" id="b-file">Скачать файлом</button>
         <button class="btn btn-ghost" id="b-mail">Открыть почту</button>
@@ -642,11 +657,9 @@ var BRIEF = [
    {id:"f4", type:"text", q:"С какого адреса должны уходить письма и кому копия?", ph:"например: info@luxal.ru, копия — руководителю отдела"}
  ]},
  { k:"G", t:"Организация", q:[
-   {id:"g1", type:"single", q:"Есть ли срок, к которому нужно запустить?", o:["Нет, работаем спокойно","1–2 месяца","До конца года","Привязано к событию — напишу ниже"]},
+   {id:"g1", type:"single", q:"К какому сроку нужно запустить?", o:["Срочно — меньше недели","В течение недели","В течение месяца","Не торопимся — важнее сделать корректно"]},
    {id:"g2", type:"text", q:"Кто принимает решение по проекту и кто будет от вас на связи?", ph:"Имя, роль, как удобнее общаться"},
-   {id:"g3", type:"single", q:"Ориентир бюджета — чтобы я предлагал реалистичное", note:"Честный диапазон экономит нам обоим неделю. Если непонятно — жмите последний вариант.",
-    o:["До 300 тыс","300–600 тыс","600 тыс — 1,2 млн","Больше","Обсудим на созвоне"]},
-   {id:"g4", type:"single", q:"Как удобнее работать?", o:["Один договор на всё","Этапами, с фиксацией цены на каждом","Сначала небольшой платный разбор, потом решаем"]},
+   {id:"g4", type:"single", q:"Как удобнее работать?", o:["Один договор на всё","Этапами, с фиксацией цены на каждом","Сначала бесплатный разбор, потом решаем"]},
    {id:"g5", type:"textarea", q:"Что я не спросил, но вам важно?", ph:"Свободным текстом — любые мысли, опасения, «а ещё хотелось бы…»"}
  ]}
 ];
@@ -829,7 +842,7 @@ function fallbackCopy(cb){
 }
 
 document.getElementById("b-copy").addEventListener("click", function(){
-  copyText(function(){ setTimeout(function(){ window.open("https://wa.me/79112754445", "_blank", "noopener"); }, 350); });
+  copyText(function(){ setTimeout(function(){ window.open("https://t.me/+79112754445", "_blank", "noopener"); }, 350); });
 });
 document.getElementById("b-copy2").addEventListener("click", function(){ copyText(); });
 document.getElementById("b-file").addEventListener("click", function(){
