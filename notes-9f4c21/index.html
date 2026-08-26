@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Разбор: Евростиль</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F3F5F8; --surface:#FFFFFF; --surface-2:#E9EEF4; --line:#D7E0EA; --line-soft:#E7EDF3;
+  --ink:#141D28; --ink-2:#46586B; --muted:#8A99A8;
+  --brand:#1C5F9E; --brand-deep:#2A3966; --brand-soft:#E5EFF8;
+  --gold:#F6C624; --gold-ink:#6E5100; --gold-soft:#FCF3D5;
+  --red:#B03A2B; --red-soft:#FBEAE7;
+  --green:#2A7355; --green-soft:#E4F2EB;
+  --shadow:0 1px 2px rgba(20,29,40,.05), 0 6px 20px rgba(42,57,102,.06);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#0C1219; --surface:#131C26; --surface-2:#1B2733; --line:#283544; --line-soft:#202C39;
+  --ink:#E4EBF3; --ink-2:#A9B9C8; --muted:#7A8B9B;
+  --brand:#67B1F6; --brand-deep:#93A7E4; --brand-soft:#132738;
+  --gold:#F6C624; --gold-ink:#F5D477; --gold-soft:#2A2206;
+  --red:#EE8B78; --red-soft:#2E1714;
+  --green:#79D2A8; --green-soft:#0F2A20;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 26px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1219; --surface:#131C26; --surface-2:#1B2733; --line:#283544; --line-soft:#202C39;
+  --ink:#E4EBF3; --ink-2:#A9B9C8; --muted:#7A8B9B;
+  --brand:#67B1F6; --brand-deep:#93A7E4; --brand-soft:#132738;
+  --gold:#F6C624; --gold-ink:#F5D477; --gold-soft:#2A2206;
+  --red:#EE8B78; --red-soft:#2E1714;
+  --green:#79D2A8; --green-soft:#0F2A20;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 26px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif; font-size:15.5px; line-height:1.62}
+h1,h2,h3,h4{font-family:Raleway,system-ui,sans-serif; margin:0; text-wrap:balance; letter-spacing:-.015em}
+p,ul,ol{margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand); outline-offset:3px; border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* layout */
+.shell{display:grid; grid-template-columns:236px minmax(0,1fr); gap:44px; max-width:1240px; margin:0 auto; padding:0 26px}
+@media (max-width:960px){ .shell{grid-template-columns:1fr; gap:0} nav.toc{display:none} }
+
+nav.toc{position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto; padding:34px 0 40px; border-right:1px solid var(--line)}
+.toc-lab{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:14px}
+.toc a{display:flex; gap:10px; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-radius:5px}
+.toc a:hover{color:var(--brand)}
+.toc a.on{color:var(--brand); font-weight:600}
+.toc a i{font-family:"IBM Plex Mono",monospace; font-style:normal; font-size:11px; color:var(--muted); flex:none; padding-top:2px}
+.toc a.on i{color:var(--brand)}
+
+main{padding:34px 0 90px; min-width:0}
+
+/* hero */
+.head{padding-bottom:26px; border-bottom:1px solid var(--line)}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--brand); display:flex; align-items:center; gap:10px}
+.kicker::before{content:""; width:24px; height:2px; background:var(--gold)}
+h1{font-size:clamp(28px,4.4vw,42px); font-weight:800; line-height:1.08; margin:14px 0 0}
+.sub{margin-top:14px; color:var(--ink-2); max-width:70ch; font-size:16px}
+.strip{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:11.5px; padding:5px 10px; border-radius:99px; border:1px solid var(--line); background:var(--surface); color:var(--ink-2)}
+.tag b{color:var(--ink); font-weight:500}
+.tag.hot{background:var(--gold-soft); border-color:color-mix(in srgb,var(--gold) 45%,transparent); color:var(--gold-ink)}
+
+section{padding:38px 0; border-bottom:1px solid var(--line); scroll-margin-top:20px}
+.sh{display:flex; align-items:baseline; gap:13px}
+.sh i{font-family:"IBM Plex Mono",monospace; font-style:normal; font-size:12px; color:var(--brand); flex:none}
+h2{font-size:clamp(20px,2.8vw,27px); font-weight:700}
+.lead{color:var(--ink-2); margin-top:9px; max-width:74ch}
+
+h3{font-size:16.5px; font-weight:700; margin-top:24px}
+h3 + p, h3 + ul{margin-top:8px}
+ul.b{list-style:none; padding:0; display:grid; gap:8px; margin-top:12px}
+ul.b > li{position:relative; padding-left:19px; color:var(--ink-2)}
+ul.b > li::before{content:"—"; position:absolute; left:0; color:var(--muted); font-family:"IBM Plex Mono",monospace}
+ul.b > li b, ul.b > li strong{color:var(--ink); font-weight:600}
+
+/* cards */
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-top:18px}
+@media (max-width:700px){ .grid2{grid-template-columns:1fr} }
+.card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+.card h4{font-size:14.5px; font-weight:700; margin-bottom:7px}
+.card p, .card ul{font-size:14px; color:var(--ink-2)}
+.card ul{list-style:none; padding:0; display:grid; gap:5px; margin-top:6px}
+.card ul li{padding-left:15px; position:relative}
+.card ul li::before{content:"·"; position:absolute; left:3px; color:var(--brand); font-weight:700}
+.card .lab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+
+.note{border-radius:0 11px 11px 0; padding:15px 18px; margin-top:20px; font-size:14.5px; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--brand)}
+.note.say{border-left-color:var(--gold); background:var(--gold-soft); border-color:color-mix(in srgb,var(--gold) 30%,var(--line))}
+.note.dont{border-left-color:var(--red); background:var(--red-soft); border-color:color-mix(in srgb,var(--red) 30%,var(--line))}
+.note.win{border-left-color:var(--green); background:var(--green-soft); border-color:color-mix(in srgb,var(--green) 30%,var(--line))}
+.note .lab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.11em; text-transform:uppercase; margin-bottom:7px; color:var(--muted)}
+.note.say .lab{color:var(--gold-ink)} .note.dont .lab{color:var(--red)} .note.win .lab{color:var(--green)}
+.note p + p{margin-top:9px}
+.note b{font-weight:600}
+
+/* table */
+.tw{overflow-x:auto; margin-top:18px; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:14px; min-width:560px}
+th,td{text-align:left; padding:11px 15px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+thead th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); background:var(--surface-2); border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+td b{font-weight:600}
+
+/* timeline */
+.tl{display:grid; gap:0; margin-top:18px; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface)}
+.tl-row{display:grid; grid-template-columns:74px 1fr; gap:16px; padding:14px 18px; border-bottom:1px solid var(--line-soft)}
+.tl-row:last-child{border-bottom:none}
+.tl-t{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--brand); font-variant-numeric:tabular-nums; padding-top:2px}
+.tl-b h4{font-size:14.5px; font-weight:700}
+.tl-b p{font-size:14px; color:var(--ink-2); margin-top:5px}
+
+/* q list */
+ol.q{list-style:none; counter-reset:q; padding:0; display:grid; gap:10px; margin-top:18px}
+ol.q li{counter-increment:q; position:relative; padding:13px 16px 13px 50px; background:var(--surface); border:1px solid var(--line); border-radius:11px}
+ol.q li::before{content:counter(q); position:absolute; left:15px; top:13px; font-family:"IBM Plex Mono",monospace; font-size:12px; color:#fff; background:var(--brand); width:22px; height:22px; border-radius:6px; display:grid; place-items:center}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) ol.q li::before{color:#0C1219} }
+:root[data-theme="dark"] ol.q li::before{color:#0C1219}
+ol.q li b{font-weight:600}
+ol.q li span{display:block; font-size:13.5px; color:var(--ink-2); margin-top:4px}
+
+/* copy blocks */
+.script{background:var(--surface); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden}
+.script-h{display:flex; align-items:center; gap:12px; padding:11px 16px; background:var(--surface-2); border-bottom:1px solid var(--line)}
+.script-h .n{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
+.script-h button{margin-left:auto; font:inherit; font-size:12.5px; font-family:"IBM Plex Mono",monospace; padding:5px 11px; border-radius:7px;
+  border:1px solid var(--line); background:var(--ground); color:var(--ink-2); cursor:pointer}
+.script-h button:hover{border-color:var(--brand); color:var(--brand)}
+.script-b{padding:16px 18px; font-size:14.5px; white-space:pre-wrap; line-height:1.66}
+.script-b em{font-style:normal; background:var(--gold-soft); color:var(--gold-ink); padding:0 3px; border-radius:3px}
+
+.linkbox{display:flex; align-items:center; gap:14px; flex-wrap:wrap; background:var(--brand-soft); border:1px solid color-mix(in srgb,var(--brand) 30%,transparent); border-radius:12px; padding:16px 18px; margin-top:18px}
+.linkbox a{font-family:"IBM Plex Mono",monospace; font-size:14px; word-break:break-all; font-weight:500}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="toc">
+  <div class="toc-lab">Разбор</div>
+  <a href="#s0"><i>00</i>Расклад</a>
+  <a href="#s1"><i>01</i>Что знаем / чего нет</a>
+  <a href="#s2"><i>02</i>Что это на самом деле</a>
+  <a href="#s3"><i>03</i>Четыре тезиса</a>
+  <a href="#s4"><i>04</i>Стек и архитектура</a>
+  <a href="#s5"><i>05</i>Этапы и деньги</a>
+  <a href="#s6"><i>06</i>Сценарий звонка</a>
+  <a href="#s7"><i>07</i>Вопросы вслух</a>
+  <a href="#s8"><i>08</i>Риски</a>
+  <a href="#s9"><i>09</i>Чего не говорить</a>
+  <a href="#s10"><i>10</i>Готовые реплики</a>
+</nav>
+
+<main>
+
+<div class="head">
+  <div class="kicker">Внутренний разбор · только для тебя</div>
+  <h1>Евростиль / Luxal: конфигуратор перегородок и авто-КП</h1>
+  <p class="sub">Максим Подосинов, luxal.ru. Созвон завтра в 12:00 — звонит он. Пришёл по рекомендации Димы, значит доверие уже есть и цену не придётся защищать с нуля. Ниже — что просят, что это технически, сколько стоит и что говорить в первые пять минут.</p>
+  <div class="strip">
+    <span class="tag">созвон <b>27.08, 12:00</b></span>
+    <span class="tag">канал <b>WhatsApp</b></span>
+    <span class="tag">рекомендация <b>Дима Крио</b></span>
+    <span class="tag hot">тёплый лид · спроса на скидку не будет</span>
+  </div>
+</div>
+
+<!-- 00 -->
+<section id="s0">
+  <div class="sh"><i>00</i><h2>Расклад</h2></div>
+  <p class="lead">Дословно из голосовой Максима: «программу на сайте, чтобы заводить ширину-высоту, и она делала расчёт санперегородки с картинкой и делала коммерческое предложение; чтобы можно было логотип менять, форму коммерческого под себя, и скидки для партнёров».</p>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="lab">Что он сказал</div>
+      <ul>
+        <li>Ввод размеров прямо на сайте</li>
+        <li>Расчёт перегородки <b>со схемой</b></li>
+        <li>Автогенерация КП</li>
+        <li>Сменный логотип и бланк КП</li>
+        <li>Скидки для партнёров</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="lab">Что он не сказал, а это решает всё</div>
+      <ul>
+        <li>Кто пользователь — клиент, менеджер или дилер</li>
+        <li>Есть ли формализованный прайс</li>
+        <li>«Картинка» — схема или 3D</li>
+        <li>Сколько брендов будет в КП</li>
+        <li>Кто платит и кто принимает решение</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab">Нестыковка, которую надо снять первым делом</div>
+    <p>Он подписан «<b>Максим Подосинов от био Терра</b>», а сайт даёт <b>ООО «Евростиль-комплексное развитие территорий»</b> (СПб, с 2000 года). Либо он в Евростиле, либо это отдельная структура, либо он их дилер и хочет white-label. От этого прямо зависит, кто заказчик, кто платит и чей логотип «менять».</p>
+  </div>
+
+  <div class="note win">
+    <div class="lab">Козырь</div>
+    <p>Ты позвонил им как клиент и получил вводную от менеджера: <b>размер помещения, план помещения, определиться с цветом, дальше менеджер подскажет</b>. Скажи это в первые две минуты — это моментально переводит разговор из «подрядчик пришёл продавать» в «человек уже разобрался в нашем процессе».</p>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="s1">
+  <div class="sh"><i>01</i><h2>Что известно точно</h2></div>
+  <p class="lead">Всё собрано с luxal.ru — можно ссылаться в разговоре, это работает лучше любой презентации.</p>
+  <div class="grid3">
+    <div class="card"><div class="lab">Продукт</div><p>HPL «Стандарт» (каркас из анодированного алюминия) и «Премиум» (бескаркасная). Плюс ЛДСП, стекло, поликарбонат.</p></div>
+    <div class="card"><div class="lab">Материал</div><p>HPL 12 мм, дилеры Abet Laminati (Италия). Значит — раскрой конкретного листа, а не абстрактные м².</p></div>
+    <div class="card"><div class="lab">Геометрия</div><p>Высота 1950, ширина 900–1200, глубина 1200–1500, зазор от пола 90–110 мм.</p></div>
+    <div class="card"><div class="lab">Фурнитура</div><p>Две линейки: Design и STC 304. Два разных комплекта в спецификации.</p></div>
+    <div class="card"><div class="lab">Цена на витрине</div><p>«от 16 352 ₽/м²» — то есть сейчас сайт даёт вилку за материал, не расчёт изделия.</p></div>
+    <div class="card"><div class="lab">Сроки и гарантия</div><p>Производство 5–7 р.д., монтаж 5–8 кабин/день, гарантия 2 года, фурнитура 7 лет. Готовые строки КП.</p></div>
+    <div class="card"><div class="lab">Каталог шире</div><p>Душевые, писсуарные, детские, шкафчики, экраны на батареи. Каждый тип — своя модель раскладки.</p></div>
+    <div class="card"><div class="lab">Сайт</div><p>WordPress, кастомная тема <span class="mono">newluxal</span>, шрифты Raleway + MuseoSans. Трогать тему не надо.</p></div>
+    <div class="card"><div class="lab">Цвет</div><p>Складская программа + индивидуальный заказ 4–6 недель. Отдельная ветка в расчёте срока.</p></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="s2">
+  <div class="sh"><i>02</i><h2>Что это на самом деле</h2></div>
+  <p class="lead">Заказчик формулирует как «калькулятор». По факту это три разные вещи, и вторая — самая дорогая.</p>
+
+  <h3>1. Раскладка — геометрия</h3>
+  <p>Ширина проёма → сколько кабин влезает и какой ширины, где пристенные панели, где добор, куда встаёт стойка. Плюс обработка нестандарта: колонна, наклонная стена, нетиповая высота. Это детерминированная математика, делается надёжно.</p>
+
+  <h3>2. Спецификация — из геометрии в железо</h3>
+  <ul class="b">
+    <li><b>Панели-перегородки:</b> N+1 шт., каждая глубина × высота</li>
+    <li><b>Дверные полотна:</b> N шт., своя ширина</li>
+    <li><b>Стойки/опоры:</b> N+1, плюс ножки регулируемые</li>
+    <li><b>Погонаж профиля:</b> верхний/нижний/пристенный по длине фронта</li>
+    <li><b>Фурнитура:</b> комплектов = числу дверей (петли, замок-индикатор, крючок, ручка, доводчик)</li>
+    <li><b>Раскрой листа:</b> лист Abet — фиксированного размера, значит цена = <b>число листов</b>, а не чистая площадь. Отход может быть 15–40%.</li>
+  </ul>
+
+  <h3>3. Цена — и здесь всё ломается</h3>
+  <p>Умножить площадь на «16 352 ₽/м²» — так делает витрина, и это враньё в обе стороны: не учтены фурнитура, раскрой, монтаж, доставка. Точная цена = спецификация × прайс + работа. <b>Прайса и правил у тебя нет — и, скорее всего, у них он тоже не формализован.</b> Это и есть главный риск проекта и главный аргумент за платный первый этап.</p>
+
+  <div class="note">
+    <div class="lab">Практический вывод</div>
+    <p>Правильная архитектура — <b>два контура точности</b>. Клиенту на сайте — вилка «от…до» с дисклеймером, мгновенно. Менеджеру/дилеру в кабинете — точный расчёт по спецификации. Это снимает и страх заказчика («а вдруг программа наобещает»), и вопрос ответственности за цифру.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="s3">
+  <div class="sh"><i>03</i><h2>Четыре тезиса, которые продают экспертизу</h2></div>
+  <p class="lead">Скажи их на созвоне — они звучат как опыт, а не как продажа, и каждый закрывает конкретный риск.</p>
+
+  <div class="note say">
+    <div class="lab">Тезис 1 · 20 / 80</div>
+    <p>«Такая программа — это на 20% сайт и на 80% ваш прайс и правила раскладки. Код здесь не сложный, сложное — формализовать, как ваш менеджер сегодня считает в голове.»</p>
+  </div>
+  <div class="note say">
+    <div class="lab">Тезис 2 · Цены — данные, не код</div>
+    <p>«Прайс, коэффициенты и скидки должны лежать в админке и меняться вами за минуту. Если зашить их в код, каждое подорожание HPL превращается в заявку разработчику и счёт.»</p>
+  </div>
+  <div class="note say">
+    <div class="lab">Тезис 3 · Версия прайса в КП</div>
+    <p>«Каждое КП фиксирует снимок цен на дату выпуска. Иначе через месяц вы открываете старое КП, а там уже новые цифры — и вы не можете доказать клиенту, что обещали.»</p>
+  </div>
+  <div class="note say">
+    <div class="lab">Тезис 4 · Стоп-кран</div>
+    <p>«Программа должна уметь сказать "я это не считаю" и передать менеджеру. Калькулятор, который молча выдаёт цену на невозможную конфигурацию, опаснее ручного расчёта.»</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="s4">
+  <div class="sh"><i>04</i><h2>Стек и архитектура</h2></div>
+  <p class="lead">Не проговаривай это подробно на созвоне — заказчику неинтересно. Держи в голове, чтобы уверенно отвечать «да, это делается так-то».</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Слой</th><th>Решение</th><th>Почему</th></tr></thead>
+      <tbody>
+        <tr><td><b>Виджет на сайт</b></td><td>React + Vite, сборка в один <span class="mono">&lt;script&gt;</span> + контейнер</td><td>Ставится на WordPress вставкой кода. Тему не трогаем — это отдельный риск и чужая зона ответственности</td></tr>
+        <tr><td><b>Бэкенд</b></td><td>Node + TypeScript (NestJS/Fastify)</td><td>Один язык фронт и бэк — дешевле поддержка. Python/FastAPI — альтернатива, если пойдёт тяжёлая оптимизация раскроя</td></tr>
+        <tr><td><b>БД</b></td><td>PostgreSQL + Prisma</td><td>Прайсы с версиями, спецификации, КП, организации, партнёры</td></tr>
+        <tr><td><b>Движок расчёта</b></td><td>Отдельный модуль, правила и прайс — в БД</td><td>Меняются без релиза. Покрыть тестами на реальных заказах: «программа = менеджер ±X%» — это и есть критерий приёмки</td></tr>
+        <tr><td><b>Схема</b></td><td>Генерация SVG на сервере</td><td>Детерминированно, векторно, ложится в PDF без потери качества. Никакого ИИ — картинка должна быть повторяемой</td></tr>
+        <tr><td><b>PDF</b></td><td>HTML-шаблон → headless Chromium (Playwright)</td><td>Шаблон правится в админке как обычная вёрстка. Логотип, реквизиты, блоки — плейсхолдеры</td></tr>
+        <tr><td><b>Файлы</b></td><td>S3-совместимое хранилище (Яндекс Object Storage / Selectel)</td><td>PDF, логотипы, планы помещений от клиентов. РФ-юрисдикция</td></tr>
+        <tr><td><b>Почта</b></td><td>Транзакционка (Unisender Go / Sendsay) + SPF/DKIM/DMARC</td><td><b>Обязательно в смету.</b> Без настройки записей КП стабильно улетает в спам, и виноват будет подрядчик</td></tr>
+        <tr><td><b>CRM</b></td><td>Вебхук + создание сделки, прикрепление PDF</td><td>amoCRM или Битрикс24 — надо выяснить. Разные API, разная трудоёмкость</td></tr>
+        <tr><td><b>Мультибренд</b></td><td>Одна база, <span class="mono">organization_id</span> на всех сущностях</td><td>Логотип, реквизиты, шаблон КП, уровень скидки — настройки организации. Дилер не видит базовую цену</td></tr>
+        <tr><td><b>Хостинг</b></td><td>РФ VPS (Selectel / Timeweb / Яндекс Cloud), Docker, CI из GitHub Actions</td><td>Клиенты — школы, медучреждения, госзаказ. Данные лучше держать в РФ</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="s5">
+  <div class="sh"><i>05</i><h2>Этапы, сроки, деньги</h2></div>
+  <p class="lead">Цифры — рыночный ориентир под РФ на 2026, для тебя, не для него. На созвоне <b>сумм не называй вообще</b>: разбор бесплатный, цена появляется после него. Вилки держи в голове на случай прямого вопроса «а порядок какой».</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Этап</th><th>Что входит</th><th>Срок</th><th>Ориентир</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>0 · Разбор</b><br><span class="mono" style="font-size:11px; color:var(--green)">бесплатно</span></td>
+          <td>Один созвон с их менеджером + разбор 3 реальных заказов. На выходе: карта правил расчёта, структура прайса, макет КП и <b>твёрдая цена на этап 1</b>. <b>Рамку проговорить вслух</b> — иначе бесплатный разбор незаметно превращается в бесплатный проект</td>
+          <td class="num">3–5 р.д.</td>
+          <td class="num">0</td>
+        </tr>
+        <tr>
+          <td><b>1 · Рабочая версия</b></td>
+          <td>Один продукт (HPL «Стандарт»): калькулятор на сайт, раскладка, SVG-схема, PDF КП, отправка на почту, админка прайса</td>
+          <td class="num">4–6 нед.</td>
+          <td class="num">350–550 тыс</td>
+        </tr>
+        <tr>
+          <td><b>2 · Бренды и партнёры</b></td>
+          <td>Организации, логотипы, редактируемые шаблоны КП, уровни скидок, кабинет дилера, роли и права</td>
+          <td class="num">3–4 нед.</td>
+          <td class="num">250–400 тыс</td>
+        </tr>
+        <tr>
+          <td><b>3 · Интеграции и расширение</b></td>
+          <td>CRM, остальные типы продукции, архив КП со статусами, аналитика конверсии</td>
+          <td class="num">2–4 нед.</td>
+          <td class="num">от 200 тыс</td>
+        </tr>
+        <tr>
+          <td><b>Поддержка</b></td>
+          <td>Хостинг, обновления прайса, мелкие правки, мониторинг доставки писем</td>
+          <td class="num">ежемесячно</td>
+          <td class="num">20–35 тыс/мес</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note win">
+    <div class="lab">Как подать бесплатный разбор — ключевой ход всего звонка</div>
+    <p>«Пока правила расчёта не описаны, любая сумма, которую я назову, будет неправдой в обе стороны — или я вас обману, или себя. Поэтому предлагаю начать не с разработки и не со сметы, а с разбора, и <b>это бесплатно</b>: один созвон с вашим менеджером, берём три реальных заказа и разбираем, как считается цена. На выходе — карта правил, макет КП и уже твёрдая цифра на разработку. Ничего не подписываем, вы просто увидите, как я работаю.»</p>
+    <p>Бесплатное снимает сопротивление на входе, но убирает фильтр несерьёзных. Поэтому <b>рамку назови в том же предложении</b> — «один созвон и три заказа». Тогда это подарок с формой, а не «он готов работать бесплатно сколько угодно».</p>
+  </div>
+
+  <div class="note dont">
+    <div class="lab">Где бесплатный разбор ломается</div>
+    <p>Если после разбора пойдут «ещё вопросик» и «а посмотрите заодно вот это» — через месяц ты бесплатно делаешь проект. Ограничитель простой, и его надо произнести вслух: <b>«разбор закрываю документом — дальше работаем по нему»</b>. Документ отдан → любое следующее действие платное.</p>
+    <p>И артефакты — прайс, 2–3 КП, заказ «до и после» — проси <b>до</b> разбора, а не после. Не присылают неделю: сделка не готова, разбор просто не начинается. Это твой единственный фильтр, раз денег на входе нет.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="s6">
+  <div class="sh"><i>06</i><h2>Сценарий звонка · 12:00, ~35 минут</h2></div>
+  <div class="tl">
+    <div class="tl-row"><div class="tl-t">0–2</div><div class="tl-b"><h4>Открытие через факт, а не через себя</h4><p>Поблагодарить Диму. Сразу: «Я посмотрел сайт и позвонил вам как клиент — мне сказали: размер помещения, план, цвет, дальше подскажет менеджер. Правильно понимаю, что весь расчёт сейчас руками?» Он скажет «да» — и дальше говорит уже он.</p></div></div>
+    <div class="tl-row"><div class="tl-t">2–10</div><div class="tl-b"><h4>Слушать</h4><p>Не перебивать. Твоя задача — вытащить: кто пользователь, что болит, сколько КП в месяц, сколько времени на одно. Записывай цифры — они понадобятся при обосновании цены.</p></div></div>
+    <div class="tl-row"><div class="tl-t">10–16</div><div class="tl-b"><h4>Вернуть понимание</h4><p>Четыре блока: ввод → расчёт → КП → отправка, плюс админка. Затем тезисы 1 и 4 (20/80 и стоп-кран). Здесь он должен почувствовать, что ты понимаешь предметку лучше, чем ожидал.</p></div></div>
+    <div class="tl-row"><div class="tl-t">16–22</div><div class="tl-b"><h4>Бриф-ссылка</h4><p>«Я собрал для вас страницу — там ваши же фото и цвета, разбор задачи и 30 вопросов кнопками, минут на десять. Заполните — и я дам предметную оценку, а не диапазон в три раза.» Открой демо-схему прямо при нём: она рисуется по размерам, это и есть «картинка».</p></div></div>
+    <div class="tl-row"><div class="tl-t">22–28</div><div class="tl-b"><h4>Бесплатный разбор — и его рамка</h4><p>Реплика из блока 05. Сумм не называть вообще. Обязательно произнести рамку: <b>один созвон с менеджером + три реальных заказа, закрываю документом</b>. Если давит на цену — реплика «про вилку» в блоке 10.</p></div></div>
+    <div class="tl-row"><div class="tl-t">28–35</div><div class="tl-b"><h4>Артефакты и дата</h4><p>Попросить прайс, 2–3 реальных КП, один заказ «до и после». Договориться о конкретной дате следующего созвона — не «созвонимся на неделе», а день и час. Сразу после звонка отправить резюме в переписку.</p></div></div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section id="s7">
+  <div class="sh"><i>07</i><h2>Восемь вопросов, которые обязательно задать голосом</h2></div>
+  <p class="lead">Остальные 30 закроет бриф. Эти — те, без ответов на которые нельзя даже прикинуть смету.</p>
+  <ol class="q">
+    <li><b>Кто открывает калькулятор — клиент с сайта, ваш менеджер или дилер?</b><span>Три разных продукта. Разница в объёме — кратная.</span></li>
+    <li><b>Кто вы в Евростиле и кто принимает решение по проекту?</b><span>Снять нестыковку «био Терра» / ООО «Евростиль». Кто платит.</span></li>
+    <li><b>Есть ли файл, по которому менеджер считает сегодня?</b><span>Если «Excel» — проект реален. Если «в голове» — этап 0 не обсуждается, он обязателен.</span></li>
+    <li><b>Цена нужна точная по спецификации или вилка?</b><span>Разница в стоимости разработки — в 2–3 раза. Предложи два контура.</span></li>
+    <li><b>«С картинкой» — это схема с размерами или 3D-визуализация?</b><span>Схема — нормальные сроки. 3D — другой бюджет и другая команда.</span></li>
+    <li><b>Сколько разных организаций будет выпускать КП и кто правит шаблон?</b><span>Одна компания или white-label на всех дилеров — принципиально разные системы.</span></li>
+    <li><b>КП уходит клиенту сразу или сначала менеджеру на проверку?</b><span>Вопрос ответственности за цифру. Рекомендуй проверку — заказчику станет спокойнее.</span></li>
+    <li><b>Какая CRM и есть ли дедлайн?</b><span>amoCRM / Битрикс24 / нет. Дедлайн — рычаг для этапности.</span></li>
+  </ol>
+</section>
+
+<!-- 08 -->
+<section id="s8">
+  <div class="sh"><i>08</i><h2>Риски и как их закрыть</h2></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Риск</th><th>Чем грозит</th><th>Как закрываешь</th></tr></thead>
+      <tbody>
+        <tr><td><b>Прайс не формализован</b></td><td>Бесконечные итерации, срыв сроков, работа в минус</td><td>Разбор до сметы; правила фиксируются документом и согласуются письменно до старта разработки</td></tr>
+        <tr><td><b>Бесплатный разбор без рамки</b></td><td>«Ещё вопросик» растягивается на месяц бесплатной работы</td><td>Рамка вслух на созвоне: один созвон с менеджером + три заказа, закрываю документом. Артефакты — до разбора, не после</td></tr>
+        <tr><td><b>Scope creep</b><br><span class="mono">«а ещё душевые, шкафчики, экраны»</span></td><td>MVP растёт втрое на том же бюджете</td><td>В договоре: MVP = один тип продукции. Остальные — фикс-цена за каждый добавленный тип</td></tr>
+        <tr><td><b>Ответственность за цену в КП</b></td><td>Клиент требует исполнить неверный расчёт, крайний — подрядчик</td><td>Дисклеймер в КП («предварительный расчёт, не оферта, уточняется замером») + режим проверки менеджером + фиксация версии прайса</td></tr>
+        <tr><td><b>Письма в спаме</b></td><td>«Ваша программа не работает» — при работающей программе</td><td>SPF/DKIM/DMARC отдельной строкой в смете, доступ к DNS домена запросить заранее</td></tr>
+        <tr><td><b>Некому вести прайс после сдачи</b></td><td>Через 3 месяца система считает по старым ценам и её бросают</td><td>Админка + обучение менеджера + договор на поддержку</td></tr>
+        <tr><td><b>Заказчик ≠ ЛПР</b></td><td>Два месяца переговоров впустую</td><td>Вопрос 2 из списка. Просить, чтобы на следующем созвоне был тот, кто подписывает</td></tr>
+        <tr><td><b>Их WordPress</b></td><td>Что-то сломалось на сайте — виноват тот, кто трогал последним</td><td>Отдельный сервис на поддомене, на сайте — только вставка виджета. Зафиксировать письменно</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 09 -->
+<section id="s9">
+  <div class="sh"><i>09</i><h2>Чего не говорить</h2></div>
+  <div class="note dont">
+    <div class="lab">Стоп-лист</div>
+    <ul class="b">
+      <li><b>Итоговую сумму проекта</b> — до того, как увидел их прайс. Любая цифра сейчас либо отпугнёт, либо загонит тебя в минус.</li>
+      <li><b>«Сделаем за две недели»</b> — даже если очень хочется закрыть сделку. Раскладка + PDF + админка за две недели не делаются.</li>
+      <li><b>«Да, будет 3D»</b> — пока не выяснил, что он имеет в виду под картинкой.</li>
+      <li><b>«Просто умножим метры на цену»</b> — звучит дёшево и обесценивает как раз ту часть, за которую ты берёшь деньги.</li>
+      <li><b>«Мы вам и сайт заодно подправим»</b> — чужой WordPress, чужая ответственность, нулевая маржа.</li>
+      <li><b>Про конкретные фреймворки и базы данных</b> — если он сам не спросил. Ему важно «кто отвечает, когда сломается», а не Postgres.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <div class="sh"><i>10</i><h2>Готовые реплики</h2></div>
+  <p class="lead">Первую отправь сегодня вечером — до звонка. Остальные держи под рукой во время разговора.</p>
+
+  <div class="linkbox">
+    <span class="mono" style="font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)">Ссылка на бриф</span>
+    <a href="https://t2754445-debug.github.io/luxal-brief/" target="_blank" rel="noopener">https://t2754445-debug.github.io/luxal-brief/</a>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Сообщение сегодня вечером · основное</span><button data-copy="m1">Скопировать</button></div>
+    <div class="script-b" id="m1">Максим, добрый вечер. Предварительно посмотрел вашу задачу — всё собрал по ссылке.
+
+https://t2754445-debug.github.io/luxal-brief/
+
+Там же несколько вопросов, ответьте по возможности — чтобы завтра сразу говорить по делу.</div>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Если захочешь дожать файлы отдельным сообщением</span><button data-copy="m1b">Скопировать</button></div>
+    <div class="script-b" id="m1b">И если найдётся — очень помогли бы три файла, даже в черновом виде:
+1) прайс или таблица, по которой менеджер сейчас считает;
+2) 2–3 реальных КП, которые вы отправляли клиентам;
+3) один заказ «до и после»: что прислал клиент → что посчитали → что вышло в итоге.
+
+По ним завтра смогу говорить предметно, а не «от и до».</div>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Открытие звонка</span><button data-copy="m2">Скопировать</button></div>
+    <div class="script-b" id="m2">Максим, здравствуйте. Спасибо Диме за наводку. Я вчера посмотрел сайт и позвонил вам как клиент — мне ответили: нужен размер помещения, план и определиться с цветом, дальше подскажет менеджер. Правильно понимаю, что весь расчёт и КП сейчас делаются руками, и узкое место — именно менеджер?</div>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Если давит на итоговую цену</span><button data-copy="m3">Скопировать</button></div>
+    <div class="script-b" id="m3">Я могу назвать вилку прямо сейчас, но она будет от и до с разницей в три раза — и пользы вам от неё никакой. Разброс не от кода, а от того, как у вас устроен прайс: если менеджер считает по таблице — это одна работа, если по опыту и памяти — совсем другая.
+
+Поэтому предлагаю так: сначала разбор, и он бесплатный. Один созвон с вашим менеджером, берём три реальных заказа и разбираем, как считается цена. Я закрываю это документом — карта правил, макет КП и уже твёрдая цифра на разработку. Ничего не подписываем, вы просто смотрите, как я работаю, и дальше решаете.</div>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Про ответственность за цифру в КП</span><button data-copy="m4">Скопировать</button></div>
+    <div class="script-b" id="m4">Отдельно продумаем, чтобы программа не могла навредить. Во-первых, каждое КП фиксирует цены на дату выпуска — через месяц вы откроете его и увидите ровно то, что обещали клиенту. Во-вторых, на нестандарт — колонна, наклонная стена, нетиповая высота — она не выдумывает цену, а честно говорит «нужен менеджер». И в-третьих, на старте поставим проверку: расчёт готов, но уходит клиенту после того, как менеджер нажал «отправить». Когда убедитесь в цифрах — включим автоотправку одной галочкой.</div>
+  </div>
+
+  <div class="script">
+    <div class="script-h"><span class="n">Резюме после звонка</span><button data-copy="m5">Скопировать</button></div>
+    <div class="script-b" id="m5">Максим, спасибо за разговор. Зафиксирую, как понял:
+
+1. <em>[кто пользователь]</em>
+2. <em>[что считаем в первой версии]</em>
+3. <em>[точность цены: вилка / спецификация / два контура]</em>
+4. <em>[картинка: схема или 3D]</em>
+5. <em>[сколько брендов в КП, кто правит шаблон]</em>
+6. <em>[куда уходит КП и в какую CRM]</em>
+
+Следующий шаг: вы присылаете прайс и 2–3 реальных КП, дальше созваниваемся с вашим менеджером и разбираем три заказа — это бесплатно, я закрываю разбор документом. После него называю твёрдую цену и срок на разработку. Созвон <em>[день, время]</em>. Если что-то понял не так — поправьте, лучше сейчас.</div>
+  </div>
+</section>
+
+<section style="border-bottom:none">
+  <div class="sh"><i>11</i><h2>Файлы</h2></div>
+  <ul class="b">
+    <li><b>Страница для Максима</b> — <a href="https://t2754445-debug.github.io/luxal-brief/" target="_blank" rel="noopener">t2754445-debug.github.io/luxal-brief</a>, локально <span class="mono">C:\РАЗРАБОТКА\luxal-kp\site\index.html</span></li>
+    <li><b>Этот разбор</b> — <a href="https://t2754445-debug.github.io/luxal-brief/notes-9f4c21/" target="_blank" rel="noopener">t2754445-debug.github.io/luxal-brief/notes-9f4c21</a> (открывается с телефона во время звонка), локально <span class="mono">C:\РАЗРАБОТКА\luxal-kp\site\notes-9f4c21\index.html</span></li>
+    <li><b>Осторожно:</b> лежит в том же публичном репозитории под неугадываемым путём и закрыт от поиска, но <b>по прямой ссылке доступен любому</b>. Со страницы для Максима ссылок сюда нет. После созвона удалить: <span class="mono">rm -r site/notes-9f4c21</span> → commit → push</li>
+    <li><b>Исходники с их сайта</b> — <span class="mono">C:\РАЗРАБОТКА\luxal-kp\_src\</span> (HTML, CSS темы, логотип, скрипт превью-карточки)</li>
+    <li>Правки на страницах: отредактировать файл → <span class="mono">git commit</span> → <span class="mono">git push</span>, ссылка обновится за минуту</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+document.querySelectorAll("[data-copy]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var el = document.getElementById(b.dataset.copy);
+    var txt = el.innerText;
+    var done = function(){ var o = b.textContent; b.textContent = "Скопировано"; setTimeout(function(){ b.textContent = o; }, 1800); };
+    if (navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(done, fb); } else fb();
+    function fb(){
+      var ta = document.createElement("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+});
+var links = [].slice.call(document.querySelectorAll("nav.toc a"));
+var secs = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+function spy(){
+  var y = window.scrollY + 90, cur = 0;
+  secs.forEach(function(s, i){ if (s && s.offsetTop <= y) cur = i; });
+  links.forEach(function(a, i){ a.classList.toggle("on", i === cur); });
+}
+window.addEventListener("scroll", spy, {passive:true}); spy();
+</script>
+</body>
+</html>
